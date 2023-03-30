@@ -37,9 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'rest_framework.authtoken',
+    'dj_rest_auth',
     'rest_framework',
     'drf_yasg',
+    'users',
     #'debug_toolbar',
     
 ]
@@ -182,4 +184,11 @@ LOGGING = {
     # will not be handled by the django logger.
     },
     },
+}
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
 }
