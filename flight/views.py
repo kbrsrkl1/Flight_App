@@ -38,6 +38,9 @@ class FlightView(viewsets.ModelViewSet):
             if Flight.objects.filter(date_of_deparature__gt=today):
                 today_qs = Flight.objects.filter(date_of_deparature__gt=today).filter(etd__gt=current_time)
 
+                queryset = queryset.union(today_qs)
+            return queryset
+
 class ReservationView(viewsets.ModelViewSet):
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
