@@ -1,3 +1,4 @@
+from rest_framework.authtoken.models import Token
 from django.urls import reverse
 from django.contrib.auth.models import User
 from rest_framework.test import APITestCase, APIRequestFactory, force_authenticate
@@ -21,6 +22,7 @@ class FlightTestCase(APITestCase):
             username='admin',
             password='Aa654321*'
         )
+        self.token = Token.objects.get(user=self.user)
 
     def test_flight_lis_as_non_auth_user(self):
         request = self.factory.get('/flight/flights/')
@@ -32,7 +34,7 @@ class FlightTestCase(APITestCase):
 
 
     def test_flight_list_as_staff_user(self):
-        request = self.factory.get('/flight/flights/')
+        request = self.factory.get('/flight/flights/', HTTP_AUTHORİZATİON = f'Token {self.token}')
         self.user.is_staff=True
         self.user.save()
         force_authenticate(request, user=self.user)
