@@ -39,3 +39,4 @@ class FlightTestCase(APITestCase):
         request.user = self.user
         response = FlightView.as_view({'get' : 'list'})(request)
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'reservation')
